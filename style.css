@@ -1,5 +1,10 @@
 * {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-user-select: none; /* Chrome, Opera, Safari */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Standard syntax */
 }
 body {
   margin: 0px;
@@ -116,6 +121,7 @@ div.timer {
   background-color: #092A3E;
 }
 .timer h1#countdown {
+  letter-spacing: 6px;
   width: 100%;
   font-size: 2.5em;
   font-weight: bold;
