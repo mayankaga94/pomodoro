@@ -36,11 +36,13 @@ function decreaseTime(id){  //if minus button is pressed.
     }
   }
 }
+
 function timerClick(){
   if(!running && !pause) startTimer(sessionTime*60,'Session',sessionTime);
   else if(running && !pause) pause = true;
   else if(!running && pause) resumeTimer();
 }
+
 function startTimer(time,type,minutes){
   var audio = new Audio('http://s000.tinyupload.com/download.php?file_id=04470092254471833282&t=0447009225447183328244593');
   var start = Math.round( (new Date().getTime())/1000);
@@ -57,20 +59,26 @@ function startTimer(time,type,minutes){
       minutes--;
       if(minutes === -1) minutes = 0;
     }
-    var min = minutes;  //maintain minutes
-    min = zero(min); // adds zero in front of minutes if it is less than 10.
+    //maintain minutes
+    var min = minutes;
+    // adds zero in front of minutes if it is less than 10.
+    min = zero(min);
     seconds = zero(seconds);
-    if(pause){ //pause the timer and store the necessary info for when timer will be resumed.
+    //pause the timer and store the necessary info for when timer will be resumed.
+    if(pause){
       clearInterval(startClock);
-      seconds++;  //after pausing,the timer still runs for an extra second.increasing it by 1 counters that,although a second is still spent.
+      //after pausing,the timer still runs for an extra second.increasing it by 1 counters that,although a second is still spent.
+      seconds++;
       seconds = zero(seconds);
       running = false;
       t.minutes = minutes;
       t.seconds = seconds;
       t.type = type;
     }
-    timer.innerHTML = min + ":" + seconds; //print out the seconds.
-    if( diff >= time){ //check if the current timer has to be stopped and then start the other timer.
+    //print out the seconds.
+    timer.innerHTML = min + ":" + seconds;
+     //check if the current timer has to be stopped and then start the other timer.
+    if( diff >= time){
       running = false;
       audio.play();
       clearInterval(startClock);
@@ -87,20 +95,27 @@ function startTimer(time,type,minutes){
 
 function resumeTimer(){
   console.log(t);
-  var time = t.minutes*60 + t.seconds; //pass on the remaining countdown time
-  var type = t.type; //tell if session or break.
-  var minutes = t.minutes;  //specify the minutes remaining.eg - 24:30 will give 24
+  //pass on the remaining countdown time
+  var time = t.minutes*60 + t.seconds;
+  //tell if session or break.
+  var type = t.type;
+  //specify the minutes remaining.eg - 24:30 will give 24
+  var minutes = t.minutes;
   pause = false;
-  startTimer(time,type,minutes); //start the timer again.
+  //start the timer again.
+  startTimer(time,type,minutes);
 }
+
 function resetTimer(){
   clearInterval(startClock);
-  running = pause = false;
+  running = false;
+  pause = false;
   timer.innerHTML = 25;
   document.getElementById("break-time").innerHTML = breakTime = 5;
   document.getElementById("session-time").innerHTML = sessionTime = 25;
   timerHeading.innerHTML = "Session";
 }
+
 function zero(t){
   if(t<10) return t = '0'+t;
   else return t;
